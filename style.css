@@ -1,5 +1,5 @@
 #searchResults {
-    position: relative;
+    position: absolute;
     display: inline-block;
 }
 
@@ -14,5 +14,42 @@
 .suggestion:hover {
     cursor: pointer;
     background-color: #dfdfdf;
+}
+
+#weatherContainer {
+    border-radius: 0.5em;
+    background-color:#5ccfd8;
+    width: 90%;
+}
+
+h2, h3 {
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+.icon {
+    display: inline-block
+}
+
+span#temp {
+    font-size: 56px;
+}
+
+span.units {
+    padding: 10px;
+    display: inline-block;
+    font-size: 24px;
+}
+
+@media only screen and (min-width: 768px) {
+    #weatherContainer {
+        width: 75%
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    #weatherContainer {
+        width: 60%
+    }
 }
 
