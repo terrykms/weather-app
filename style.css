@@ -9,8 +9,15 @@ body {
 .parent {
     display: flex;
     flex-direction: column;
-    margin-bottom: -150px;
-    z-index: 100;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+#searchResults {
+    position: absolute;
+    top: 38px; /* hardcoded */
+    width: 100%;
 }
 
 .suggestion {
