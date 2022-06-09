@@ -60,8 +60,13 @@ $(document).ready(function() {
             evt.preventDefault();
             var key = $("#city").val()
             getCityCoordinates(key);
-            // $(".suggestion").remove(); 
+            $("#searchResults").css("display", "none"); 
         }
+    })
+
+    $("#city").on("click", function(evt) {
+        evt.preventDefault();
+        $("#searchResults").css("display", "block");
     })
 
     function getCityCoordinates(cityKey) {
@@ -88,7 +93,6 @@ $(document).ready(function() {
             dataType: "json",
 
             success: function(data) {
-                console.log(data)
 
                 /* ------ CITY/STATE/COUNTRY ------- */
                 var city = data.name;
@@ -99,12 +103,11 @@ $(document).ready(function() {
                 /* ------ WEATHER ------- */
                 var weather = data.weather[0].main;
                 var weatherDesc = data.weather[0].description;
-                console.log(weatherDesc);
                 // $("#weather").html(weatherDesc);
                 $("#weatherIcon").attr({
-                    src: "img/icons/" + data.weather[0].icon + ".png",
-                    width: "64px",
-                    height: "64px",
+                    src: "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png",
+                    width: "84px",
+                    height: "84px",
                 });
 
 
@@ -112,13 +115,22 @@ $(document).ready(function() {
                 /* ------ SUNRISE/SUNSET ------ */
                 const SECONDS_TO_MILLISECONDS = 1000;
                 const MINUTES_TO_SECONDS = 60;
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
                 var date = new Date(Date.now());
                 var localTimezoneOffset = date.getTimezoneOffset() * MINUTES_TO_SECONDS // convert from minutes to seconds
                 var timeConversionFactor = localTimezoneOffset + data.timezone;
 
+                var currentLocalTime = new Date((data.dt + timeConversionFactor) * SECONDS_TO_MILLISECONDS);
                 var sunrise = new Date((data.sys.sunrise + timeConversionFactor) * SECONDS_TO_MILLISECONDS);
                 var sunset = new Date((data.sys.sunset + timeConversionFactor) * SECONDS_TO_MILLISECONDS)
+
+                $("#sunrise").html(sunrise.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+                $("#sunset").html(sunset.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+
+                $("#date").html(currentLocalTime.toLocaleDateString(undefined, options)); // edit the code
+
+
 
                 /* ------ TEMPERATURE ----- */
                 var temp = data.main.temp;
@@ -126,14 +138,19 @@ $(document).ready(function() {
                 var minTemp = data.main.temp_min;
                 var maxTemp = data.main.temp_max;   
                 
-                $("#temp").html(temp.toFixed(1));
-                $("#maxTemp").html("Highest: " + maxTemp);
-                $("#minTemp").html("Lowest: " + minTemp);         
-                $("#feelsLike").html("Feels Like: " + tempFeelsLike.toFixed(1))
+                $("#currentTemp").html(temp.toFixed(1));
+                $("#maxTemp").html(maxTemp.toFixed(1));
+                $("#minTemp").html(minTemp.toFixed(1));         
+                $("#feelsLike").html(tempFeelsLike.toFixed(1))
 
                 /* ------ HUMIDITY/WIND/PRECIPITATION ------ */
                 var humidity = data.main.humidity;
-                $("#humidity").html("Humidity: " + humidity + "&#x25;");
+                var windSpeed = data.wind.speed;
+                var windDirection = data.wind.deg; // conversion to direction function needed
+
+                $("#humidity").html(humidity);
+                $("#windSpeed").html(windSpeed);
+                $("#windDirection").html(windDirection);
                 
 
 
@@ -142,7 +159,7 @@ $(document).ready(function() {
 
                 //last update (local time)
                 var lastUpdate = new Date(data.dt * SECONDS_TO_MILLISECONDS);
-                $("#lastUpdated").html(lastUpdate)
+                $("#lastUpdated").html("Last Updated: " + lastUpdate)
             },
             error: function(xhr, status, error) {
                 //define later
@@ -150,4 +167,18 @@ $(document).ready(function() {
             }
         })
     }
+
+    $(".nav-link").each(function() {
+
+        $(this).on("click", function() {
+            // set all .details to display: none
+            $(".details").addClass("hidden");
+            $(".nav-link").removeClass("active");
+
+            // then change the selected content to disply: block
+            var selectorID = "#" + $(this).data("target");
+            $(selectorID).removeClass("hidden");
+            $(this).addClass("active");
+        })
+    })
 })

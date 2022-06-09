@@ -1,3 +1,11 @@
+body {
+    color: #efefef;
+}
+
+.text-dark {
+    color: #121212;
+}
+
 #searchResults {
     position: absolute;
     display: inline-block;
@@ -16,40 +24,94 @@
     background-color: #dfdfdf;
 }
 
-#weatherContainer {
-    border-radius: 0.5em;
-    background-color:#5ccfd8;
+.outer {
     width: 90%;
 }
 
-h2, h3 {
+#weatherContainer {
+    border-radius: 0.5em;
+    background:linear-gradient(to bottom right, #78c5ef, #51a0d5);
+
+}
+
+h2 {
     margin-bottom: 0;
-    display: inline-block;
+}
+
+h3.label {
+    font-size: 18px;
 }
 
 .icon {
-    display: inline-block
+    display: inline-block;
+    position: relative;
 }
 
-span#temp {
+span#currentTemp {
     font-size: 56px;
+    position: relative;
 }
 
-span.units {
-    padding: 10px;
+span.data {
+    font-size: 28px;
+}
+
+span.unit-large {
+    padding: 6px;
     display: inline-block;
     font-size: 24px;
 }
 
+span.unit {
+    font-size: 1em;
+}
+
+span.nav-link {
+    color: #efefef;
+    cursor: pointer;
+
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+span.nav-link:hover {
+    color: #efefef;
+}
+
+span.nav-link.active {
+    color: #efefef !important;
+    background-color: transparent !important;
+    text-decoration: underline;
+}
+
+.details {
+    padding-top: 2em;
+}
+
+.hidden {
+    display: none;
+}
+
+i.bi {
+    font-size: 56px;
+}
+
 @media only screen and (min-width: 768px) {
-    #weatherContainer {
+    .outer {
         width: 75%
+    }
+
+    i.bi {
+        font-size: 56px;
     }
 }
 
 @media only screen and (min-width: 992px) {
-    #weatherContainer {
-        width: 60%
+    .outer {
+        width: 65%
     }
 }
 

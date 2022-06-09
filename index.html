@@ -10,12 +10,15 @@
 
         <link href="style.css" rel="stylesheet">
 
+        <!-- bootstrap icons-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
         <title>Weather App</title>
     </head>
     <body>
         <div class="container pt-5">
             <div class="row mb-3">
-                <h1 class="text-center">Weather App using jQuery AJAX</h1>
+                <h1 class="text-center text-dark">Weather App using jQuery AJAX</h1>
             </div>
             <div class="row mb-3 justify-content-center">
                 <div class="col-lg-6 col-12">
@@ -23,39 +26,90 @@
                         <input id="city" class="form-control" type="text" placeholder="Enter a city" aria-label="Name of City" value="Seoul">
                         <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
                     </div>
-                    <div class="mt-1" id="searchResults"></div>
+                    <div class="text-dark" id="searchResults"></div>
                 </div>
             </div>
         </div>
 
-        <div class="container pt-3" id="weatherContainer" style="display: none">
+        <div class="container outer p-4" id="weatherContainer" style="display: none">
             <div class="row">
-                <div class="col-lg-5 col-md-6 col-12">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="icon">
-                                <img id="weatherIcon" src="" alt="Weather Icon">
+                <div class="col-lg-4 col-12 text-center mb-2">
+                    <div class="icon">
+                        <img id="weatherIcon" src="" alt="Weather Icon">
+                    </div>
+                    <div class="header">
+                        <h2 id="cityName"></h2>
+                        <span id="countryName"></span>
+                    </div>
+                    <span id="currentTemp"></span><span class="unit-large">&#8451;</span>
+                    <div id="date"></div> 
+                </div>
+                <div class="col-lg-8 col-12">
+                    <nav class="nav nav-pills nav-fill">
+                        <span class="nav-link active" data-target="tempDetails" aria-current="page">Temperature</span>
+                        <span class="nav-link" data-target="daylight">Daylight</span>
+                        <span class="nav-link" data-target="windHumidity">Wind&Humidity</span>
+                    </nav>
+                    <div class="container details" id="tempDetails">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <i class="bi bi-thermometer-half"></i>
+                                <h3 class="label">Feels Like</h3>    
+                                <span class="data" id="feelsLike"></span><span class="unit"> &#8451;</span>                               
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-thermometer-high"></i>
+                                <h3 class="label">Highest</h3>
+                                <span class="data" id="maxTemp"></span><span class="unit"> &#8451;</span>                             
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-thermometer-low"></i>
+                                <h3 class="label">Lowest</h3>
+                                <span class="data" id="minTemp"></span><span class="unit"> &#8451;</span>                       
                             </div>
                         </div>
-                        <div class="col-8 align-self-center">
-                            <h2 id="cityName"></h2>
-                            <h3 id="countryName" class="text-muted"></h3>
+                    </div>
+                    <div class="container details hidden" id="daylight">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <i class="bi bi-sunrise"></i>
+                                <h3 class="label">Sunrise</h3>
+                                <span class="data" id="sunrise"></span>
+                            </div>
+                            <div class="col-6">
+                                <i class="bi bi-sunset"></i>
+                                <h3 class="label">Sunset</h3>
+                                <span class="data" id="sunset"></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="container details hidden" id="windHumidity">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <i class="bi bi-moisture"></i>
+                                <h3 class="label">Humidity</h3>
+                                <span class="data" id="humidity"></span><span class="unit"> &#x25;</span>  
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-wind"></i>
+                                <h3 class="label">Wind Speed</h3>
+                                <span class="data" id="windSpeed"></span><span class="unit"> m/s</span>
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-compass"></i>
+                                <h3 class="label">Wind Direction</h3>
+                                <span class="data" id="windDirection"></span><span class="unit"> &#xb0;</span>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <span id="temp"></span><span class="units">&#8451;</span>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div id="humidity"></div>
-                    <div id="feelsLike"></div>
-                    <div id="maxTemp"></div>
-                    <div id="minTemp"></div>
+
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div id="lastUpdated"></div>
+        <div class="container outer pt-3 text-end">
+            <div id="lastUpdated" class="text-dark"></div>
         </div>
 
         <!-- jQuery CDN -->
