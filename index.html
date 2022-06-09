@@ -17,16 +17,16 @@
     </head>
     <body>
         <div class="container pt-5">
-            <div class="row mb-3">
+            <div class="row mb-3" >
                 <h1 class="text-center text-dark">Weather App using jQuery AJAX</h1>
             </div>
             <div class="row mb-3 justify-content-center">
-                <div class="col-lg-6 col-12">
-                    <div class="input-group">
-                        <input id="city" class="form-control" type="text" placeholder="Enter a city" aria-label="Name of City" value="Seoul">
-                        <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+                <div class="col-lg-5 col-11 parent">
+                    <input id="city" class="form-control" type="text" placeholder="Enter a city" aria-label="Name of City">
                     <div class="text-dark" id="searchResults"></div>
+                </div>
+                <div class="col-lg-1 col-1">
+                    <button id="submitBtn" type="submit" class="btn btn-primary">Search</button>
                 </div>
             </div>
         </div>
@@ -34,8 +34,9 @@
         <div class="container outer p-4" id="weatherContainer" style="display: none">
             <div class="row">
                 <div class="col-lg-4 col-12 text-center mb-2">
-                    <div class="icon">
+                    <div class="weather">
                         <img id="weatherIcon" src="" alt="Weather Icon">
+                        <span id="weatherWord"></span>
                     </div>
                     <div class="header">
                         <h2 id="cityName"></h2>

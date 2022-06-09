@@ -6,17 +6,25 @@ body {
     color: #121212;
 }
 
-#searchResults {
-    position: absolute;
-    display: inline-block;
+.parent {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -150px;
+    z-index: 100;
 }
 
 .suggestion {
-    background-color: #efefef;
+    background-color: #ffffff;
     padding: 0px 10px 3px 3px;
     border-width: 0px 1px 1px 1px;
     border-style: solid;
-    border-color: #949494;
+    border-color: #ced4da;
+}
+
+.suggestion:last-child {
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+
 }
 
 .suggestion:hover {
@@ -31,7 +39,6 @@ body {
 #weatherContainer {
     border-radius: 0.5em;
     background:linear-gradient(to bottom right, #78c5ef, #51a0d5);
-
 }
 
 h2 {
@@ -39,10 +46,10 @@ h2 {
 }
 
 h3.label {
-    font-size: 18px;
+    font-size: 14px;
 }
 
-.icon {
+.weather {
     display: inline-block;
     position: relative;
 }
@@ -96,7 +103,7 @@ span.nav-link.active {
 }
 
 i.bi {
-    font-size: 56px;
+    font-size: 36px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -104,8 +111,12 @@ i.bi {
         width: 75%
     }
 
+    h3.label {
+        font-size: 16px;
+    }
+
     i.bi {
-        font-size: 56px;
+        font-size: 64px;
     }
 }
 

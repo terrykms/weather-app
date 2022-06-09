@@ -70,21 +70,31 @@ $(document).ready(function() {
     })
 
     function getCityCoordinates(cityKey) {
-        $.ajax({
-            url: GEOCODING_API + "?q=" + cityKey + "&limit=5" + "&appid=" + API_KEY,
-            dataType: "json",
-
-            success: function(data) {
-                var lat = data[0].lat;
-                var lon = data[0].lon;
-
-                getWeatherData(lat, lon)
-            },
-            error: function(xhr, status, error) {
-                //define later
-                console.log("Error: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-            }          
-        })
+        if (cityKey != "") {
+            $.ajax({
+                url: GEOCODING_API + "?q=" + cityKey + "&limit=5" + "&appid=" + API_KEY,
+                dataType: "json",
+    
+                success: function(data) {
+                    try {
+                        console.log(data)
+                        var lat = data[0].lat;
+                        var lon = data[0].lon;
+                        getWeatherData(lat, lon)
+                    }
+                    catch (err) {
+                        if (data[0] === undefined) {
+                        alert("City is not in the database!")
+                        }
+                    }
+    
+                },
+                error: function(xhr, status, error) {
+                    //define later
+                    alert("Error: " + xhr.status + " " + xhr.statusText)
+                }          
+            })
+        }
     }
 
     function getWeatherData(lat, lon) {
@@ -109,6 +119,9 @@ $(document).ready(function() {
                     width: "84px",
                     height: "84px",
                 });
+
+                $("#weatherWord").html(weather);
+
 
 
 
