@@ -1,6 +1,6 @@
 const CURRENT_WEATHER_DATA_API = "https://api.openweathermap.org/data/2.5/weather";
 const GEOCODING_API = "http://api.openweathermap.org/geo/1.0/direct";
-const API_KEY = "1501a965f1790381be648537630b699a";
+const API_KEY = "API_KEY"; // insert personal API key that has been generated. 
 
 $(document).ready(function() {
     /* ------- clear suggestions to update with every keydown------ */
