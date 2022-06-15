@@ -1,6 +1,11 @@
 const CURRENT_WEATHER_DATA_API = "https://api.openweathermap.org/data/2.5/weather";
-const GEOCODING_API = "http://api.openweathermap.org/geo/1.0/direct";
-const API_KEY = "API_KEY"; // insert personal API key that has been generated. 
+const FIVE_DAY_WEATHER_FORECAST_API = "https://api.openweathermap.org/data/2.5/forecast"
+const GEOCODING_API = "https://api.openweathermap.org/geo/1.0/direct";
+const API_KEY = "1501a965f1790381be648537630b699a"; // insert personal API key that has been generated. 
+
+const DAY_LIST = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+const SECONDS_TO_MILLISECONDS = 1000;
+const MINUTES_TO_SECONDS = 60;
 
 $(document).ready(function() {
     /* ------- clear suggestions to update with every keydown------ */
@@ -77,10 +82,11 @@ $(document).ready(function() {
     
                 success: function(data) {
                     try {
-                        console.log(data)
+                        // console.log(data)
                         var lat = data[0].lat;
                         var lon = data[0].lon;
                         getWeatherData(lat, lon)
+                        getFiveDayWeatherForecast(lat, lon)
                     }
                     catch (err) {
                         if (data[0] === undefined) {
@@ -126,9 +132,6 @@ $(document).ready(function() {
 
 
                 /* ------ SUNRISE/SUNSET ------ */
-                const SECONDS_TO_MILLISECONDS = 1000;
-                const MINUTES_TO_SECONDS = 60;
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
                 var date = new Date(Date.now());
                 var localTimezoneOffset = date.getTimezoneOffset() * MINUTES_TO_SECONDS // convert from minutes to seconds
@@ -141,7 +144,7 @@ $(document).ready(function() {
                 $("#sunrise").html(sunrise.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
                 $("#sunset").html(sunset.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
 
-                $("#date").html(currentLocalTime.toLocaleDateString(undefined, options)); // edit the code
+                $("#currentDateTime").html("Last Updated: "+ currentLocalTime.toLocaleString({weekday: "long"})); // edit the code
 
 
 
@@ -194,4 +197,42 @@ $(document).ready(function() {
             $(this).addClass("active");
         })
     })
+
+    /* -------------- 
+                UNFINISHED CODE 
+                    - 5-day weather data API
+                --------------- */ 
+    function getFiveDayWeatherForecast(lat, lon) {
+        $.ajax({
+            url: FIVE_DAY_WEATHER_FORECAST_API + "?lat=" + lat + "&lon=" + lon + "&appid=" + API_KEY + "&units=metric",
+            dataType: "json",
+
+            success: function(data) {
+                console.log(data)
+
+                // repetition, think of a way to combine the code. 
+                var date = new Date(Date.now());
+                var localTimezoneOffset = date.getTimezoneOffset() * MINUTES_TO_SECONDS // convert from minutes to seconds
+                var timeConversionFactor = localTimezoneOffset + data.city.timezone;
+
+                const data_list = data.list;
+
+                data_list.forEach(item => {
+                    var timeString = item.dt_txt;    
+                    var time = new Date((item.dt+timeConversionFactor) * SECONDS_TO_MILLISECONDS);
+                    var time_orig = new Date(item.dt * SECONDS_TO_MILLISECONDS)
+
+                    console.log(timeString);
+                    console.log(time)
+                    console.log(time_orig)
+                })
+
+            },
+
+            error: function(xhr, status, error) {
+                //define later
+                alert("Error: " + xhr.status + " " + xhr.statusText)
+            }
+        })
+    }
 })

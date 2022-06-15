@@ -4,11 +4,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" type="image/ico" href="img/favicon.ico">
+        <link rel="icon" type="image/ico" href="img/favicon-weather.ico">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-        <link href="style.css" rel="stylesheet">
+        <link href="css/style-weather-app.css" rel="stylesheet">
 
         <!-- bootstrap icons-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
@@ -18,14 +18,14 @@
     <body>
         <div class="container pt-5">
             <div class="row mb-3" >
-                <h1 class="text-center text-dark">Weather App</h1>
+                <h1 class="text-center text-dark">Today's Weather Forecast</h1>
             </div>
             <div class="row mb-3 justify-content-center">
-                <div class="col-lg-5 col-11 parent">
-                    <input id="city" class="form-control" type="text" placeholder="Enter a city" aria-label="Name of City">
+                <div class="col-lg-5 col-8 parent">
+                    <input id="city" class="form-control" type="text" placeholder="Enter a city" aria-label="Name of City" value="Singapore">
                     <div class="text-dark" id="searchResults"></div>
                 </div>
-                <div class="col-lg-1 col-1">
+                <div class="col-lg-1 col-2">
                     <button id="submitBtn" type="submit" class="btn btn-primary">Search</button>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                         <span id="countryName"></span>
                     </div>
                     <span id="currentTemp"></span><span class="unit-large">&#8451;</span>
-                    <div id="date"></div> 
+                    <div id="currentDateTime"></div>
                 </div>
                 <div class="col-lg-8 col-12">
                     <nav class="nav nav-pills nav-fill">
@@ -105,8 +105,17 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- 5-day weather forecast -->
+            <div class="row justify-content-center">
+                <div class="col-lg-2 forecast">
 
                 </div>
+                <div class="col-lg-2 forecast"></div>
+                <div class="col-lg-2 forecast"></div>
+                <div class="col-lg-2 forecast"></div>
+                <div class="col-lg-2 forecast"></div>
             </div>
         </div>
         <div class="container outer pt-3 text-end">
@@ -119,6 +128,6 @@
         <!-- Bootstrap bundle -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-        <script src="scripts.js"></script>
+        <script src="js/scripts-weather-app.js"></script>
     </body>
 </html>
